@@ -4,8 +4,16 @@ from nonebot.typing import T_State
 from nonebot.params import State
 import re
 
-repeater_group = get_driver().config.repeater_group
-shortest = get_driver().config.repeater_minlen
+global_config = get_driver().config
+if not global_config.repeater_off_group:
+    repeater_off_group = []
+else:
+    repeater_off_group = global_config.repeater_off_group
+
+if not global_config.repeater_minlen:
+    shortest = 1
+else:
+    shortest = global_config.repeater_minlen
 
 m = on_message(priority=10, block=False)
 
@@ -31,7 +39,7 @@ def getPicMeta(message: str):
 async def repeater(bot: Bot, event: GroupMessageEvent, state: T_State = State()):
     global last_message, has_repeated
     gid = str(event.group_id)
-    if gid in repeater_group:
+    if gid not in repeater_off_group:
         logger.debug(event.message)
         mt = messageType(str(event.message))
         logger.debug(mt)
