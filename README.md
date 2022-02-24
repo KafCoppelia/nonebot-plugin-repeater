@@ -1,36 +1,55 @@
 <div align="center">
 
-  # Repeater
-  ✨ 基于[NoneBot](https://github.com/nonebot/nonebot2)的插件，群聊复读机 ✨
-  </br>
-  ✨ auto +1 ✨
+# Repeater
+
+<!-- prettier-ignore-start -->
+<!-- markdownlint-disable-next-line MD036 -->
+_📻 复读机 📻_
+<!-- prettier-ignore-end -->
+
 </div>
 
-## 功能介绍
+<p align="center">
+  
+  <a href="https://github.com/KafCoppelia/nonebot-plugin-repeater2/blob/main/LICENSE">
+    <img src="https://img.shields.io/badge/license-MIT-informational">
+  </a>
+  
+  <a href="https://github.com/nonebot/nonebot2">
+    <img src="https://img.shields.io/badge/nonebot2-2.0.0beta.2-green">
+  </a>
+  
+  <a href="">
+    <img src="https://img.shields.io/badge/release-v0.1.0-orange">
+  </a>
+  
+</p>
+
+</p>
+
+## 版本
+
+v0.1.0
+
+⚠ 适配nonebot2-2.0.0beta.2；
+
+## 安装
+
+1. 通过`pip`或`nb`安装，版本请指定`0.1.0`；
+
+2. 在原版基础上修改了配置，**默认所有群支持复读**，通过`REPEATER_OFF_GROUP`设置关闭的群：
+
+    ```python
+    REPEATER_OFF_GROUP=["123456789", "987654321"]
+    REPEATER_MINLEN=1 # 触发复读的文本消息最小长度（表情和图片无此限制）
+    ```
+
+## 功能
 
 当群里开始+1时，机器人也会参与其中。
 
 包括普通消息，QQ表情，还有图片（表情包）。
 
-## 用法简介
+## Fork from
 
-两个全局配置：
-
-```python
-repeater_group = ["<群号1>", "<群号2>"]  # 支持复读的群号
-repeater_minlen = 1  # 触发复读的文本消息最小长度（表情和图片无此限制）
-```
-
-按常规方法导入插件即可。
-
-<a href="https://github.com/Utmost-Happiness-Planet/uhpstatus/blob/main/LICENSE">
-    <img src="https://img.shields.io/badge/license-GPL%20v3.0-orange" alt="license">
-  </a>
-  
-  <a href="https://github.com/nonebot/nonebot2">
-    <img src="https://img.shields.io/badge/nonebot-v2-red" alt="nonebot">
-  </a> 
-  
-  <a href="">
-    <img src="https://img.shields.io/badge/release-v1.0-blueviolet" alt="release">
-</a>
+[ninthseason-nonebot-plugin-repeater](https://github.com/ninthseason/nonebot-plugin-repeater)

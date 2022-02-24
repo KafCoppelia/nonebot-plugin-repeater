@@ -1,16 +1,14 @@
 from nonebot import get_driver, on_message, logger
 from nonebot.adapters.onebot.v11 import Bot, GroupMessageEvent, MessageSegment
-from nonebot.typing import T_State
-from nonebot.params import State
 import re
 
 global_config = get_driver().config
-if not global_config.repeater_off_group:
+if not hasattr(global_config, "repeater_off_group"):
     repeater_off_group = []
 else:
     repeater_off_group = global_config.repeater_off_group
 
-if not global_config.repeater_minlen:
+if not hasattr(global_config, "repeater_minlen"):
     shortest = 1
 else:
     shortest = global_config.repeater_minlen
@@ -36,13 +34,13 @@ def getPicMeta(message: str):
 
 
 @m.handle()
-async def repeater(bot: Bot, event: GroupMessageEvent, state: T_State = State()):
+async def repeater(bot: Bot, event: GroupMessageEvent):
     global last_message, has_repeated
     gid = str(event.group_id)
     if gid not in repeater_off_group:
-        logger.debug(event.message)
+        # logger.debug(event.message)
         mt = messageType(str(event.message))
-        logger.debug(mt)
+        # logger.debug(mt)
 
         # 对不同类别的消息处理方式不同，图片是最麻烦的
         data = None
@@ -68,7 +66,7 @@ async def repeater(bot: Bot, event: GroupMessageEvent, state: T_State = State())
         else:
             last_message[gid] = None
 
-        logger.debug(str(data))
+        # logger.debug(str(data))
         # 如果这条消息已经复读过了就不参与复读了
         if not has_repeated.get(gid) and data is not None:
             has_repeated[gid] = True
