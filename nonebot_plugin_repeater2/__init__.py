@@ -1,4 +1,4 @@
-from nonebot import get_driver, on_message, logger
+from nonebot import get_driver, on_message
 from nonebot.adapters.onebot.v11 import Bot, GroupMessageEvent, MessageSegment
 import re
 
@@ -18,7 +18,6 @@ m = on_message(priority=10, block=False)
 last_message = {}
 has_repeated = {}
 
-
 # 消息类型判别 - 分类普通文本消息、QQ表情、图片
 def messageType(message: str):
     if message[0] == "[":
@@ -32,15 +31,12 @@ def messageType(message: str):
 def getPicMeta(message: str):
     return re.findall("url=(.*?)[,|\]]", message)[0], re.findall("file=(.*?)[,|\]]", message)[0]
 
-
 @m.handle()
 async def repeater(bot: Bot, event: GroupMessageEvent):
     global last_message, has_repeated
     gid = str(event.group_id)
     if gid not in repeater_off_group:
-        # logger.debug(event.message)
         mt = messageType(str(event.message))
-        # logger.debug(mt)
 
         # 对不同类别的消息处理方式不同，图片是最麻烦的
         data = None
@@ -66,7 +62,6 @@ async def repeater(bot: Bot, event: GroupMessageEvent):
         else:
             last_message[gid] = None
 
-        # logger.debug(str(data))
         # 如果这条消息已经复读过了就不参与复读了
         if not has_repeated.get(gid) and data is not None:
             has_repeated[gid] = True
